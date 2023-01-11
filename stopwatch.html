@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch Application</title>
+    <link rel="stylesheet" href="stopwatch.css">
+</head>
+<body>
+    
+    <div class="container">
+        <span class="hours">00</span>
+        <span class="colon">:</span>
+        <span class="min">00</span>
+        <span class="colon">:</span>
+        <span class="sec">00</span>
+        <span class="colon">:</span>
+        <span class="ms">00</span>
+    </div>
+    <div class="content">
+        <span class="btn start" onclick="startfun() ">Start</span>
+        <span class="btn stop" onclick="stopfun() ">Stop</span>
+        <span class="btn reset" onclick="resetfun() ">Reset</span>
+    </div>
+
+    <script>
+
+    const start = document.querySelector(".start")
+    const stop = document.querySelector(".stop")
+    const reset = document.querySelector(".reset")
+    let hr = min = sec = ms = "0" +0,
+    startTimer;
+
+    start.addEventListener("click" , () => {
+        startTimer = setInterval(() => {
+            ms++
+            ms = ms < 10 ? "0" + ms : ms
+            // console.log(ms);
+            if (ms == 100) { 
+                sec++  
+               sec = sec < 10 ? "0" + sec : sec
+               ms = 0
+               console.log(sec);
+                // console.log(sec);
+            }
+           
+            if (sec == 60) {
+                min++
+                min = min < 10 ? "0" + min : min
+                sec = 0
+                console.log(min);
+            }
+            
+            if (min == 60) {
+                hr++
+                hr = hr < 10 ? "0" + hr : hr
+                min =  0
+                console.log(hr);
+            }
+            
+            templete()
+        }, 10);
+    })
+
+        
+
+    const startfun = () => {
+            document.querySelector(".start").classList.add("startnew")
+            document.querySelector(".reset").classList.remove("startnew")
+            document.querySelector(".stop").classList.remove("startnew")
+
+        }
+    const stopfun = () => {
+            document.querySelector(".start").classList.remove("startnew")
+            document.querySelector(".stop").classList.add("startnew")
+            document.querySelector(".reset").classList.remove("startnew")
+            clearInterval(startTimer)      
+        }
+    const resetfun = () => {
+            document.querySelector(".reset").classList.add("startnew")
+            document.querySelector(".start").classList.remove("startnew")
+            document.querySelector(".stop").classList.remove("startnew")
+            clearInterval(startTimer)
+            let hr = min = sec = ms = "0" + 0
+            templete()
+        }
+  
+    // function another style
+    const templete = () => {
+        document.querySelector(".ms").innerText = ms
+        document.querySelector(".sec").innerText = sec
+        document.querySelector(".min").innerText = min
+        document.querySelector(".hours").innerText = hr
+        console.log(sec);
+    }
+  </script>
+</body>
+</html>
